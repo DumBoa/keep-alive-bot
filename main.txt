@@ -1,0 +1,15 @@
+import asyncio
+from pyppeteer import launch
+
+async def keep_alive():
+    browser = await launch(
+        headless=True,
+        args=['--no-sandbox', '--disable-setuid-sandbox']
+    )
+    page = await browser.newPage()
+    await page.goto('https://80-firebase-app-1750422867613.cluster-ikxjzjhlifcwuroomfkjrx437g.cloudworkstations.dev/vnc.html?autoconnect=true&resize=remote')
+    print("Đã mở trang VNC. Đang giữ kết nối...")
+    await asyncio.sleep(60)  # 1 phút
+    await browser.close()
+
+asyncio.get_event_loop().run_until_complete(keep_alive())
